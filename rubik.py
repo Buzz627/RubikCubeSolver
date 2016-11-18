@@ -58,7 +58,7 @@ class Side():
 
 class Cube():
 
-	def __init__(self):
+	def __init__(self, size=3):
 
 	# 	self.top=Side('g')
 	# 	self.down=Side('w')
@@ -73,6 +73,7 @@ class Cube():
 	# 	self.down.connections=[self.front, self.left, self.back, self.right]
 	# 	self.front.connections=[self.right, self.top, self.left, self.down]
 	# 	self.right.connections=
+		self.size=size
 
 
 
@@ -85,6 +86,43 @@ class Cube():
 			print i+" ="
 			self.sides[i].printSide()
 
+	def prettyPrintCube(self):
+		for i in self.sides["t"].face:
+			for j in range(2*(self.size+1)):
+				print " ",
+			for k in i:
+				print k,
+			for j in range(2*(self.size+1)):
+				print " ",
+			print ""
+		for j in range(4*(self.size+1)):
+			print "-",
+		print ""
+		for i in range(self.size):
+			for j in self.sides["b"].face[i]:
+				print j,
+			print "|",
+			for j in self.sides["l"].face[i]:
+				print j,
+			print "|",
+			for j in self.sides["f"].face[i]:
+				print j,
+			print "|",
+			for j in self.sides["r"].face[i]:
+				print j,
+			# print "|",
+			print ""
+
+		for j in range(4*(self.size+1)):
+			print "-",
+		print ""
+		for i in self.sides["d"].face:
+			for j in range(2*(self.size+1)):
+				print " ",
+			for k in i:
+				print k,
+			print ""
+		print "\n\n"
 	def turnFace(self, n):
 		if n=="t":
 			temp=self.sides["t"].getTopRow()
@@ -104,6 +142,20 @@ class Cube():
 # print str(s.getLeftCol())+"\n"
 # s.printSide()
 c=Cube()
+c.prettyPrintCube()
 c.turnFace("t")
-c.printCube()
+c.prettyPrintCube()
 # c.printCube()
+
+
+   #          """    g g g 
+   #                 g g g 
+   #                 g g g
+   #                 ----- 
+   # y y y | g g g | o o o | b b b 
+   # b b b | y y y | r r r | o o o 
+   # b b b | y y y | r r r | o o o 
+   #                 -----
+   #                 w w w 
+   #                 w w w 
+   #                 w w w """
