@@ -1,3 +1,4 @@
+from termcolor import cprint
 class Side():
 	def __init__(self, symbol, size=3):
 		self.face=[[symbol]*size for i in range (size)]
@@ -87,6 +88,7 @@ class Cube():
 			self.sides[i].printSide()
 
 	def prettyPrintCube(self):
+		colors={"r":"red", "b":"blue","g":"green", "w":"white","y":"yellow","m":"magenta"}
 		for i in self.sides["t"].face:
 			for j in range(2*(self.size+1)):
 				print " ",
@@ -123,13 +125,61 @@ class Cube():
 				print k,
 			print ""
 		print "\n\n"
+
+#
+#     t
+# b l f r
+#     d
+#
 	def turnFace(self, n):
 		if n=="t":
-			temp=self.sides["t"].getTopRow()
+			temp=self.sides["f"].getTopRow()
 			self.sides["f"].setTopRow(self.sides["r"].getTopRow())
 			self.sides["r"].setTopRow(self.sides["b"].getTopRow())
 			self.sides["b"].setTopRow(self.sides["l"].getTopRow())
 			self.sides["l"].setTopRow(temp)
+
+		elif n=="d":
+			temp=self.sides["f"].getBottomRow()
+			self.sides["f"].setBottomRow(self.sides["l"].getBottomRow())
+			self.sides["l"].setBottomRow(self.sides["b"].getBottomRow())
+			self.sides["b"].setBottomRow(self.sides["r"].getBottomRow())
+			self.sides["r"].setBottomRow(temp)
+
+
+		#need to fix the ordering
+		elif n=="f":
+			temp=self.sides["t"].getBottomRow()
+			self.sides["t"].setBottomRow(self.sides["l"].getRightCol()[::-1])
+			self.sides["l"].setRightCol(self.sides["d"].getTopRow())
+			self.sides["d"].setTopRow(self.sides["r"].getLeftCol())
+			self.sides["r"].setLeftCol(temp[::-1])
+
+		elif n=="l":
+			temp=self.sides["t"].getLeftCol()
+			self.sides["t"].setLeftCol(self.sides["b"].getRightCol()[::-1])
+			self.sides["b"].setRightCol(self.sides["d"].getLeftCol())
+			self.sides["d"].setLeftCol(self.sides["f"].getLeftCol())
+			self.sides["f"].setLeftCol(temp[::-1])
+
+		elif n=="b":
+			temp=self.sides["t"].getTopRow()
+			self.sides["t"].setTopRow(self.sides["r"].getRightCol()[::-1])
+			self.sides["r"].setRightCol(self.sides["d"].getBottomRow())
+			self.sides["d"].setBottomRow(self.sides["l"].getLeftCol()[::-1])
+			self.sides["l"].setLeftCol(temp)
+
+		elif n=="r":
+			temp=self.sides["t"].getRightCol()
+			self.sides["t"].setRightCol(self.sides["f"].getRightCol())
+			self.sides["f"].setRightCol(self.sides["d"].getRightCol())
+			self.sides["d"].setRightCol(self.sides["b"].getLeftCol())
+			self.sides["b"].setLeftCol(temp)
+
+
+
+
+
 
 
 
@@ -143,7 +193,7 @@ class Cube():
 # s.printSide()
 c=Cube()
 c.prettyPrintCube()
-c.turnFace("t")
+c.turnFace("l")
 c.prettyPrintCube()
 # c.printCube()
 
