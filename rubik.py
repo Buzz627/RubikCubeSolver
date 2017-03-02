@@ -1,4 +1,4 @@
-from termcolor import cprint
+from termcolor import colored
 class Side():
 	def __init__(self, symbol, size=3):
 		self.face=[[symbol]*size for i in range (size)]
@@ -88,12 +88,12 @@ class Cube():
 			self.sides[i].printSide()
 
 	def prettyPrintCube(self):
-		colors={"r":"red", "b":"blue","g":"green", "w":"white","y":"yellow","m":"magenta"}
+		colors={"r":"red", "b":"blue","g":"green", "w":"white","y":"yellow","o":"magenta"}
 		for i in self.sides["t"].face:
 			for j in range(2*(self.size+1)):
 				print " ",
 			for k in i:
-				print k,
+				print colored(k, colors[k]),
 			for j in range(2*(self.size+1)):
 				print " ",
 			print ""
@@ -102,16 +102,16 @@ class Cube():
 		print ""
 		for i in range(self.size):
 			for j in self.sides["b"].face[i]:
-				print j,
+				print colored(j, colors[j]),
 			print "|",
 			for j in self.sides["l"].face[i]:
-				print j,
+				print colored(j, colors[j]),
 			print "|",
 			for j in self.sides["f"].face[i]:
-				print j,
+				print colored(j, colors[j]),
 			print "|",
 			for j in self.sides["r"].face[i]:
-				print j,
+				print colored(j, colors[j]),
 			# print "|",
 			print ""
 
@@ -122,7 +122,7 @@ class Cube():
 			for j in range(2*(self.size+1)):
 				print " ",
 			for k in i:
-				print k,
+				print colored(k, colors[k]),
 			print ""
 		print "\n\n"
 
@@ -193,7 +193,7 @@ class Cube():
 # s.printSide()
 c=Cube()
 c.prettyPrintCube()
-c.turnFace("l")
+c.turnFace("f")
 c.prettyPrintCube()
 # c.printCube()
 
