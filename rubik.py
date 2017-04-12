@@ -131,7 +131,7 @@ class Cube():
 # b l f r
 #     d
 #
-	def turnFace(self, n):
+	def turnSides(self, n):
 		if n=="t":
 			temp=self.sides["f"].getTopRow()
 			self.sides["f"].setTopRow(self.sides["r"].getTopRow())
@@ -173,14 +173,31 @@ class Cube():
 			temp=self.sides["t"].getRightCol()
 			self.sides["t"].setRightCol(self.sides["f"].getRightCol())
 			self.sides["f"].setRightCol(self.sides["d"].getRightCol())
-			self.sides["d"].setRightCol(self.sides["b"].getLeftCol())
+			self.sides["d"].setRightCol(self.sides["b"].getLeftCol()[::-1])
 			self.sides["b"].setLeftCol(temp)
 
 
 
 
 
+	def turnFace(self, side):
+		mat=self.sides[side]
+		temp=mat.getTopRow()
+		if side=="b":
+			
+			mat.setTopRow(mat.getRightCol())
+			mat.setRightCol(mat.getBottomRow())
+			mat.setBottomRow(mat.getLeftCol())
+			mat.setLeftCol(temp)
 
+		else:
+			mat.setTopRow(mat.getLeftCol())
+			mat.setLeftCol(mat.getBottomRow())
+			mat.setBottomRow(mat.getRightCol())
+			mat.setRightCol(temp)
+		self.sides[side]=mat
+
+		self.turnSides(side)
 
 
 
@@ -193,7 +210,18 @@ class Cube():
 # s.printSide()
 c=Cube()
 c.prettyPrintCube()
+c.turnFace("r")
+c.turnFace("r")
+c.turnFace("l")
+c.turnFace("l")
 c.turnFace("f")
+c.turnFace("f")
+c.turnFace("b")
+c.turnFace("b")
+c.turnFace("t")
+c.turnFace("t")
+c.turnFace("d")
+c.turnFace("d")
 c.prettyPrintCube()
 # c.printCube()
 
