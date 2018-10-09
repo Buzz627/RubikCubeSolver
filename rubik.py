@@ -171,7 +171,7 @@ class Cube():
 
 		elif n=="r":
 			temp=self.sides["t"].getRightCol()
-			self.sides["t"].setRightCol(self.sides["f"].getRightCol())
+			self.sides["t"].setRightCol(self.sides["f"].getRightCol()[::-1])
 			self.sides["f"].setRightCol(self.sides["d"].getRightCol())
 			self.sides["d"].setRightCol(self.sides["b"].getLeftCol()[::-1])
 			self.sides["b"].setLeftCol(temp)
