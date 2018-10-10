@@ -4,7 +4,7 @@ def colored(text, color):
 	return '{}{}{}'.format(fg(color), text, attr(0))
 
 class Side():
-	def __init__(self, symbol, size=3):
+	def __init__(self, symbol, size):
 		self.face=[[symbol]*size for i in range (size)]
 		self.size=size
 		connections=[]
@@ -72,7 +72,12 @@ class Cube():
 	# 	self.back=Side('b')
 	# 	self.left=Side('y')
 	# 	self.sides=[self.top, self.down, self.front, self.right, self.back, self.left]
-		self.sides={"t":Side('g'), "d":Side('w'), "f":Side('r'),"r":Side('o'),"b":Side('b'), "l":Side('y')}
+		self.sides={"t":Side('g', size), 
+					"d":Side('w', size), 
+					"f":Side('r', size),
+					"r":Side('o', size),
+					"b":Side('b', size), 
+					"l":Side('y', size)}
 	# 	# self.sides[0].connect(self.sides[])
 	# 	self.top.connections=[self.front, self.right, self.back, self.left]
 	# 	self.down.connections=[self.front, self.left, self.back, self.right]
