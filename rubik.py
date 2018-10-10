@@ -1,4 +1,8 @@
-from termcolor import colored
+# from termcolor import colored
+from colored import fg, bg, attr
+def colored(text, color):
+	return '{}{}{}'.format(fg(color), text, attr(0))
+
 class Side():
 	def __init__(self, symbol, size=3):
 		self.face=[[symbol]*size for i in range (size)]
@@ -88,7 +92,7 @@ class Cube():
 			self.sides[i].printSide()
 
 	def prettyPrintCube(self):
-		colors={"r":"red", "b":"blue","g":"green", "w":"white","y":"yellow","o":"magenta"}
+		colors={"r":"red", "b":"#0000ff","g":"green", "w":"white","y":"#ffff00","o":166}
 		for i in self.sides["t"].face:
 			for j in range(2*(self.size+1)):
 				print " ",
@@ -186,14 +190,14 @@ class Cube():
 		if side=="b":
 			
 			mat.setTopRow(mat.getRightCol())
-			mat.setRightCol(mat.getBottomRow())
+			mat.setRightCol(mat.getBottomRow()[::-1])
 			mat.setBottomRow(mat.getLeftCol())
-			mat.setLeftCol(temp)
+			mat.setLeftCol(temp[::-1])
 
 		else:
-			mat.setTopRow(mat.getLeftCol())
+			mat.setTopRow(mat.getLeftCol()[::-1])
 			mat.setLeftCol(mat.getBottomRow())
-			mat.setBottomRow(mat.getRightCol())
+			mat.setBottomRow(mat.getRightCol()[::-1])
 			mat.setRightCol(temp)
 		self.sides[side]=mat
 
@@ -210,20 +214,24 @@ class Cube():
 # s.printSide()
 c=Cube()
 c.prettyPrintCube()
-c.turnFace("r")
-c.turnFace("r")
-c.turnFace("l")
-c.turnFace("l")
-c.turnFace("f")
-c.turnFace("f")
-c.turnFace("b")
-c.turnFace("b")
-c.turnFace("t")
-c.turnFace("t")
-c.turnFace("d")
-c.turnFace("d")
-c.prettyPrintCube()
+# c.turnFace("r")
+# c.turnFace("r")
+# c.turnFace("l")
+# c.turnFace("l")
+# c.turnFace("f")
+# c.turnFace("f")
+# c.turnFace("b")
+# c.turnFace("b")
+# c.turnFace("t")
+# c.turnFace("t")
+# c.turnFace("d")
+# c.turnFace("d")
+# c.prettyPrintCube()
 # c.printCube()
+c.turnFace("r")
+c.prettyPrintCube()
+c.turnFace("f")
+c.prettyPrintCube()
 
 
    #          """    g g g 
